@@ -12,8 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digital.Lib.Net.Core", "Dig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digital.Lib.Net.Authentication", "Digital.Lib\Digital.Lib.Net.Authentication\Digital.Lib.Net.Authentication.csproj", "{163F1B28-BE0C-454D-B9AB-FE0AC514525F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digital.Lib.Net.Bootstrap", "Digital.Lib\Digital.Lib.Net.Bootstrap\Digital.Lib.Net.Bootstrap.csproj", "{D4DC3CE8-5A11-42F6-90A0-5F1EE2597D74}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digital.Lib.Net.Entities", "Digital.Lib\Digital.Lib.Net.Entities\Digital.Lib.Net.Entities.csproj", "{4DF63174-84F6-44F2-9460-7DD0EA236D38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digital.Lib.Net.Events", "Digital.Lib\Digital.Lib.Net.Events\Digital.Lib.Net.Events.csproj", "{D479EBD5-DFD6-4E0E-8F7E-FAECEF2CC02F}"
@@ -25,6 +23,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digital.Lib.Net.Mvc", "Digital.Lib\Digital.Lib.Net.Mvc\Digital.Lib.Net.Mvc.csproj", "{BFA5C9FA-2007-46AB-AD35-023ED34C48A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digital.Lib.Net.TestTools", "Digital.Lib\Digital.Lib.Net.TestTools\Digital.Lib.Net.TestTools.csproj", "{B8FC1F36-4047-4901-99ED-1B1362CAEFCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digital.Lib.Net.Sdk", "Digital.Lib\Digital.Lib.Net.Sdk\Digital.Lib.Net.Sdk.csproj", "{3F9EA7FB-D6B6-4AED-A682-6EC012985841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +76,10 @@ Global
 		{B8FC1F36-4047-4901-99ED-1B1362CAEFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8FC1F36-4047-4901-99ED-1B1362CAEFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8FC1F36-4047-4901-99ED-1B1362CAEFCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F9EA7FB-D6B6-4AED-A682-6EC012985841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F9EA7FB-D6B6-4AED-A682-6EC012985841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F9EA7FB-D6B6-4AED-A682-6EC012985841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F9EA7FB-D6B6-4AED-A682-6EC012985841}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
