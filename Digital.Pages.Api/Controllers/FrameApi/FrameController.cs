@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Digital.Pages.Api.Controllers.FrameApi;
 
-[ApiController, Route("frame"), Authorize(AuthorizeType.Jwt)]
+[ApiController, Route("frame"), Authorize(AuthorizeType.Any)]
 public class FrameController(
     IEntityService<Frame, DigitalPagesContext> frameService
 ) : CrudController<Frame, DigitalPagesContext, FrameDto, FramePayload>(frameService);

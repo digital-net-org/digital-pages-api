@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Digital.Pages.Api.Controllers.ViewApi;
 
-[ApiController, Route("view"), Authorize(AuthorizeType.Jwt)]
+[ApiController, Route("view"), Authorize(AuthorizeType.Any)]
 public class ViewPaginationController(
     IRepository<View, DigitalPagesContext> viewRepository
 ) : PaginationController<View, DigitalPagesContext, ViewDto, ViewQuery>(viewRepository)

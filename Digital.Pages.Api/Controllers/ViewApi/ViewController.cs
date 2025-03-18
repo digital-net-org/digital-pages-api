@@ -8,14 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Digital.Pages.Api.Controllers.ViewApi;
 
-[ApiController, Route("view"), Authorize(AuthorizeType.Jwt)]
+[ApiController, Route("view"), Authorize(AuthorizeType.Any)]
 public class ViewController(
     IEntityService<View, DigitalPagesContext> viewService
-) : CrudController<View, DigitalPagesContext, ViewDto, ViewPayload>(viewService)
-{
-    [HttpPost("{id:guid}/duplicate")]
-    public async Task<ActionResult<Result>> PostDuplicate(Guid id) =>
-        // TODO: Implement loop to duplicate with copy prefix
-        // Implement duplication method in Digital.Net.Entities
-        throw new NotImplementedException();
-}
+) : CrudController<View, DigitalPagesContext, ViewDto, ViewPayload>(viewService);
