@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Behavior
+
+## Modification and Refactoring
+- **Do not modify** an existing function or class unless explicitly requested.
+- Refactoring should only be performed if specifically asked for.
+
+## Checking for Existing Implementations
+- Always verify if a **type** or **function** already exists before attempting to implement it.
+- Never duplicate functionality that is already available.
+
+## Service Utilization
+- Always check existing **services** before implementing a new function.
+- Determine the most appropriate location within the architecture to add new functionality.
+
+## Solution Proposal and Validation
+- Always **propose a solution** with a detailed explanation before implementing it.
+- Request explicit validation before applying any changes.
+
+

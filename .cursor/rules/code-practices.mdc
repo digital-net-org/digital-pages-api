@@ -1,0 +1,49 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# C# Code Conventions
+## General Guidelines
+- Do not write comments.
+- Always write names in English.
+- Never use abbreviations.
+
+## Naming Conventions
+- **Variables & Methods**: Use `camelCase`.
+- **Classes & Structs**: Use `PascalCase`.
+- **Constants**: Use `UPPER_SNAKE_CASE`.
+- **Static Classes**: Must **not** contain the term `Service`.
+
+## Function Rules
+- Functions must not exceed **30 lines**.
+- Pure functions must be **static** and placed in **static classes**.
+
+## Class Rules
+- **Static classes** cannot include the term `Service`.
+- **Injected classes** must always have an interface.
+
+## Testing Conventions
+- Tests must extend `UnitTest` or `IntegrationTest` based on context.
+
+## EditorConfig Compliance
+- Respect indentation: **4 spaces**.
+- Sort `using` directives placing `System.*` first.
+- Do not qualify fields, properties, methods, or events with `this`.
+- Prefer language keywords over BCL types.
+- Always use parentheses for clarity in arithmetic and relational operations.
+- Require accessibility modifiers for non-interface members.
+- Prefer `readonly` fields where applicable.
+- Enforce object and collection initializers.
+- Use explicit tuple names.
+- Prefer null propagation and coalescing expressions.
+- Enforce PascalCase for constant fields.
+- Use `var` when type is built-in, apparent, or inferred.
+- Favor expression-bodied members where applicable.
+- Prefer pattern matching over traditional `is` and `as` checks.
+- Enforce strict modifier ordering.
+
+These rules must be **strictly followed** by the AI when generating C# code.
+
+
