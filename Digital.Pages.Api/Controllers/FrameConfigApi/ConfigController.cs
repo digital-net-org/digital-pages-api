@@ -2,6 +2,7 @@ using Digital.Lib.Net.Authentication.Attributes;
 using Digital.Lib.Net.Core.Exceptions;
 using Digital.Lib.Net.Core.Messages;
 using Digital.Pages.Api.Data.FramesConfig;
+using Digital.Pages.Api.Exceptions;
 using Digital.Pages.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ public class ConfigController(
         return result.HasError() ? NotFound() : result.Value!;
     }
 
-    [HttpGet("validate")]
+    [HttpGet("status")]
     public ActionResult<Result> GetConfigStatus() => frameConfigService.GetConfigStatus();
 
     [HttpPut("{id:int}/publish")]
@@ -38,6 +39,19 @@ public class ConfigController(
             return Conflict(result);
         if (result.HasError())
             return BadRequest(result);
+        return Ok(result);
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult<Result>> DeleteConfig(int id)
+    {
+        var result = await frameConfigService.Delete(id);
+        if (result.HasError<ResourceNotFoundException>())
+            return NotFound(result);
+        if (result.HasError<CannotDeletePublishedConfigException>())
+            return BadRequest(result);
+        if (result.HasError())
+            return StatusCode(500, result);
         return Ok(result);
     }
 

@@ -11,4 +11,5 @@ public interface IFrameConfigService
     Task<Result<FrameConfigDto>> Upload(IFormFile file, [FromForm] string version);
     Result<FileResult> GetConfig(Expression<Func<FrameConfig, bool>> expression);
     Result GetConfigStatus();
+    Task<Result> Delete(int id);
 }

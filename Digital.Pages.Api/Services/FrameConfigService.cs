@@ -89,4 +89,22 @@ public class FrameConfigService(
         }
         return result;
     }
+
+    public async Task<Result> Delete(int id)
+    {
+        var result = await frameConfigValidationService.GetDeletable(id);
+        if (result.HasError())
+            return result;
+        try
+        {
+            await documentService.RemoveDocumentAsync(result.Value!.DocumentId);
+            frameConfigRepository.Delete(result.Value);
+            await frameConfigRepository.SaveAsync();
+        }
+        catch (Exception ex)
+        {
+            result.AddError(ex);
+        }
+        return result;
+    }
 }
