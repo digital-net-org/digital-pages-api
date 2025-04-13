@@ -20,8 +20,6 @@ public class ConfigPaginationController(
     {
         if (!string.IsNullOrEmpty(query.Version))
             predicate = predicate.Add(x => x.Version.StartsWith(query.Version));
-        if (query.IsPublished is not null)
-            predicate = predicate.Add(x => x.IsPublished == query.IsPublished);
         return predicate;
     }
 }

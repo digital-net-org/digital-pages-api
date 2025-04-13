@@ -1,4 +1,5 @@
 using Digital.Pages.Api.Data.Frames;
+using Digital.Pages.Api.Data.FramesConfig;
 
 namespace Tests.Dto.Entities;
 
@@ -26,6 +27,8 @@ public class FrameTest
         var frame = new Frame
         {
             Id = Guid.Empty,
+            ConfigId = 0,
+            Config = new FrameConfig(),
             Name = "title",
             Data = "{\"test\":\"test\"}",
             CreatedAt = DateTime.UtcNow,
@@ -48,6 +51,8 @@ public class FrameTest
         var frame = new Frame
         {
             Id = Guid.Empty,
+            ConfigId = 0,
+            Config = new FrameConfig(),
             Name = "title",
             Data = null,
             CreatedAt = DateTime.UtcNow,

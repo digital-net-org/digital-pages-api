@@ -17,5 +17,8 @@ public class FramePayload
     [Required]
     public string Name { get; set; }
 
+    [Required]
+    public int ConfigId { get; set; }
+
     public string? Data { get; set; }
 }
