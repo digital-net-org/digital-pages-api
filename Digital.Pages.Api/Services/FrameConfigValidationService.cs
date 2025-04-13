@@ -14,7 +14,7 @@ public class FrameConfigValidationService(
     public async Task<Result> ValidateUpload(IFormFile file, string version)
     {
         var result = new Result();
-        if (await frameConfigRepository.CountAsync(x => x.Version == version) > 0)
+        if (await frameConfigRepository.CountAsync(x => x.Version.ToLower() == version.ToLower()) > 0)
             return result.AddError(new ResourceDuplicateException());
         if (file.Length == 0)
             return result.AddError(new ResourceMalformedException());
@@ -31,7 +31,7 @@ public class FrameConfigValidationService(
         var config = await frameConfigRepository.GetByIdAsync(id);
         if (config is null)
             return result.AddError(new ResourceNotFoundException());
-        if (config.IsPublished)
+        if (config.Frames.Count > 0)
             return result.AddError(new CannotDeletePublishedConfigException(config.Id));
         result.Value = config;
         return result;

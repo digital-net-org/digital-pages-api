@@ -26,6 +26,7 @@ public class ViewTest
             Frame = new Frame
             {
                 Id = Guid.Empty,
+                ConfigId = 0,
                 Name = "title",
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,

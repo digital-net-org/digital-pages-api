@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Digital.Lib.Net.Entities.Attributes;
 using Digital.Lib.Net.Entities.Models;
+using Digital.Pages.Api.Data.FramesConfig;
 using Digital.Pages.Api.Data.Views;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,5 +17,9 @@ public class Frame : EntityGuid
     [Column("Data"), DataFlag("json")]
     public string? Data { get; set; }
 
+    [Column("ConfigId"), Required, ForeignKey("FrameConfig")]
+    public required int ConfigId { get; set; }
+
     public virtual View? View { get; set; }
+    public virtual FrameConfig Config { get; set; }
 }

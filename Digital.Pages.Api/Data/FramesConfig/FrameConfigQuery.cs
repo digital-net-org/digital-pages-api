@@ -5,5 +5,4 @@ namespace Digital.Pages.Api.Data.FramesConfig;
 public class FrameConfigQuery : Query
 {
     public string? Version { get; set; }
-    public bool? IsPublished { get; set; }
 }
