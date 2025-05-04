@@ -10,7 +10,6 @@ public class FrameConfigDto
     {
         Id = frameConfig.Id;
         Version = frameConfig.Version;
-        Document = frameConfig?.Document is not null ? new DocumentDto(frameConfig.Document) : null;
         CreatedAt = frameConfig?.CreatedAt;
     }
 
@@ -18,14 +17,12 @@ public class FrameConfigDto
     {
         Id = frameConfig.Id;
         Version = frameConfig.Version;
-        Document = new DocumentDto(document);
         CreatedAt = frameConfig.CreatedAt;
         UpdatedAt = frameConfig.UpdatedAt;
     }
 
     public int Id { get; set; }
     public string Version { get; set; } = string.Empty;
-    public DocumentDto? Document { get; set; }
     public DateTime? CreatedAt { get; init; }
     public DateTime? UpdatedAt { get; init; }
 }
