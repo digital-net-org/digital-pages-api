@@ -18,6 +18,16 @@ public class ConfigController(
     IUserContextService userContextService
 ) : ControllerBase
 {
+    [HttpGet("test")]
+    public async Task<ActionResult<Result>> Test()
+    {
+        var result = new Result();
+        if (await frameConfigRepository.CountAsync(_ => true) is 0)
+            result.AddError(new NoFrameConfigException());
+        
+        return result.HasError<NoFrameConfigException>() ? Conflict(result) : Ok(result);
+    }
+    
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Result<FrameConfigDto>>> GetConfig(int id)
     {

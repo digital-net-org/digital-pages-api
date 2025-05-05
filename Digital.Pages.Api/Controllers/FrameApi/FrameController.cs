@@ -18,6 +18,8 @@ public class FrameController(
     IRepository<FrameConfig, DigitalPagesContext> frameConfigRepository
 ) : CrudController<Frame, DigitalPagesContext, FrameDto, FramePayload>(frameService)
 {
+    private readonly IEntityService<Frame, DigitalPagesContext> _frameService = frameService;
+
     [HttpPost("")]
     public override async Task<ActionResult<Result>> Post([FromBody] FramePayload payload)
     {
@@ -32,7 +34,7 @@ public class FrameController(
             
             payload.ConfigId = (int)defaultVersion;
         }
-        var result = await frameService.Create(Mapper.Map<FramePayload, Frame>(payload));
+        var result = await _frameService.Create(Mapper.Map<FramePayload, Frame>(payload));
         return result.HasError() ? BadRequest(result) : Ok(result);
     }
 };
