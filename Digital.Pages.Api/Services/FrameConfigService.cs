@@ -16,30 +16,40 @@ public class FrameConfigService(
     IDocumentService documentService
 ) : IFrameConfigService
 {
-    public Result<FileResult> GetConfig(string version)
+    public Result<FrameConfig> GetConfig(string version)
     {
-        var result = new Result<FileResult>();
+        var result = new Result<FrameConfig>();
         var config = frameConfigRepository.Get(x => x.Version == version).FirstOrDefault();
         if (config is null)
             return result.AddError(new ResourceNotFoundException());
-
-        result.Value = documentService.GetDocumentFile(config.DocumentId, "application/javascript");
+        
+        result.Value = config;
+        return result;
+    }
+    
+    public Result<FileResult> GetConfigFile(FrameConfig config)
+    {
+        var result = new Result<FileResult>
+        {
+            Value = documentService.GetDocumentFile(config.DocumentId, "application/javascript")
+        };
+        
         if (result.Value is null)
             result.AddError(new NoFrameConfigFileException(config.Id));
 
         return result;
     }
 
-    public async Task<Result<FrameConfigDto>> UploadAsync(IFormFile file, string version, User uploader)
+    public async Task<Result<FrameConfigDto>> UploadAsync(IFormFile file, string version, User? uploader)
     {
         var result = new Result<FrameConfigDto>();
-        if (result.Merge(await frameConfigValidationService.ValidateUpload(file, version)).HasError())
+        if (result.Merge(await frameConfigValidationService.ValidateUpload(file, version)).HasError)
             return result;
 
         var documentResult = await documentService.SaveDocumentAsync(file, uploader);
         result.Merge(documentResult);
 
-        if (result.HasError() || documentResult.Value is null)
+        if (result.HasError || documentResult.Value is null)
             return result;
 
         var config = new FrameConfig
@@ -56,7 +66,7 @@ public class FrameConfigService(
     public async Task<Result> DeleteAsync(int id)
     {
         var result = await frameConfigValidationService.GetDeletable(id);
-        if (result.HasError())
+        if (result.HasError)
             return result;
         try
         {

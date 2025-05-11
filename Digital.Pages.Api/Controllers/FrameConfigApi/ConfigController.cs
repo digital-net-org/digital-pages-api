@@ -2,7 +2,9 @@ using Digital.Lib.Net.Authentication.Attributes;
 using Digital.Lib.Net.Authentication.Services.Authentication;
 using Digital.Lib.Net.Core.Exceptions;
 using Digital.Lib.Net.Core.Messages;
+using Digital.Lib.Net.Entities.Models.Users;
 using Digital.Lib.Net.Entities.Repositories;
+using Digital.Lib.Net.Http.HttpClient.Extensions;
 using Digital.Pages.Api.Data;
 using Digital.Pages.Api.Data.FramesConfig;
 using Digital.Pages.Api.Exceptions;
@@ -25,7 +27,29 @@ public class ConfigController(
         if (await frameConfigRepository.CountAsync(_ => true) is 0)
             result.AddError(new NoFrameConfigException());
         
-        return result.HasError<NoFrameConfigException>() ? Conflict(result) : Ok(result);
+        return result.HasErrorOfType<NoFrameConfigException>() ? Conflict(result) : Ok(result);
+    }
+    
+    [HttpGet("{version}")]
+    public ActionResult GetConfigFile(string version)
+    {
+        var result = new Result();
+        var config = result.Try(() => frameConfigService.GetConfig(version));
+        var etag = config?.DocumentId.ToString();
+        
+        if (result.HasError || config is null)
+            return NotFound();
+        if (Request.Headers.TestIfNoneMatch(etag))
+            return StatusCode(304);
+
+        var file = result.Try(() => frameConfigService.GetConfigFile(config));
+        if (result.HasError || file is null)
+            return NotFound();
+        
+        Response.Headers.CacheControl = "public, max-age=0, must-revalidate";
+        Response.Headers.ETag = etag;
+        Response.Headers.Remove("Content-Disposition");
+        return file;
     }
     
     [HttpGet("{id:int}")]
@@ -44,9 +68,9 @@ public class ConfigController(
     {
         var user = userContextService.GetUser();
         var result = await frameConfigService.UploadAsync(file, version, user);
-        if (result.HasError<ResourceDuplicateException>())
+        if (result.HasErrorOfType<ResourceDuplicateException>())
             return Conflict(result);
-        if (result.HasError())
+        if (result.HasError)
             return BadRequest(result);
         return Ok(result);
     }
@@ -55,11 +79,11 @@ public class ConfigController(
     public async Task<ActionResult<Result>> DeleteConfig(int id)
     {
         var result = await frameConfigService.DeleteAsync(id);
-        if (result.HasError<ResourceNotFoundException>())
+        if (result.HasErrorOfType<ResourceNotFoundException>())
             return NotFound(result);
-        if (result.HasError<CannotDeletePublishedConfigException>())
+        if (result.HasErrorOfType<CannotDeletePublishedConfigException>())
             return BadRequest(result);
-        if (result.HasError())
+        if (result.HasError)
             return StatusCode(500, result);
         return Ok(result);
     }

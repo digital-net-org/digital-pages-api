@@ -14,11 +14,11 @@ namespace Digital.Pages.Api.Controllers.FrameApi;
 
 [ApiController, Route("frame"), Authorize(AuthorizeType.Any)]
 public class FrameController(
-    IEntityService<Frame, DigitalPagesContext> frameService,
+    IEntityService<Frame, DigitalPagesContext> frameEntityService,
     IRepository<FrameConfig, DigitalPagesContext> frameConfigRepository
-) : CrudController<Frame, DigitalPagesContext, FrameDto, FramePayload>(frameService)
+) : CrudController<Frame, DigitalPagesContext, FrameDto, FramePayload>(frameEntityService)
 {
-    private readonly IEntityService<Frame, DigitalPagesContext> _frameService = frameService;
+    private readonly IEntityService<Frame, DigitalPagesContext> _frameEntityService = frameEntityService;
 
     [HttpPost("")]
     public override async Task<ActionResult<Result>> Post([FromBody] FramePayload payload)
@@ -34,7 +34,7 @@ public class FrameController(
             
             payload.ConfigId = (int)defaultVersion;
         }
-        var result = await _frameService.Create(Mapper.Map<FramePayload, Frame>(payload));
-        return result.HasError() ? BadRequest(result) : Ok(result);
+        var result = await _frameEntityService.Create(Mapper.Map<FramePayload, Frame>(payload));
+        return result.HasError ? BadRequest(result) : Ok(result);
     }
 };
